@@ -20,6 +20,7 @@ export default NextAuth({
   callbacks: {
     async signIn({ user }) {
         const { email } = user;
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
         try {
           await fauna.query(
             q.If(
