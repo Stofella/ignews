@@ -15,7 +15,6 @@ export function SubscribeButton({priceId}: SubscribeButtonProps){
             signIn('github')
             return;
         }
-
         // criação da checkout session
         try{
             const response = await api.post('/subscribe')
@@ -23,9 +22,9 @@ export function SubscribeButton({priceId}: SubscribeButtonProps){
             const { sessionId } = response.data;
             
             const stripe = await getStripeJs();
-
             await stripe.redirectToCheckout({ sessionId });
         }catch(err){
+            console.log(err ,"index subscribe");
             alert("Error: " + err.message);
         }
     }
