@@ -36,14 +36,19 @@ export default function Post({post}: PostProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req , params }) => {
+export const getServerSideProps = async ({ req , params }) => {
   const session = await getSession({ req });
 
   const { slug } = params;
 
-  // if(!session) {
-
-  // }
+  if(!session?.activeSubscription) {
+    return {
+      redirect: {
+        description: '/',
+        permanent: false,
+      }
+    }
+  }
 
   const prismic = getPrismicClient(req)
 
